@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">MindMatrix</string>
+
+    <string-array name="categories_array">
+        <item>General</item>
+        <item>Science</item>
+        <item>History</item>
+        <item>Technology</item>
+    </string-array>
+
+    <string-array name="difficulty_array">
+        <item>Easy</item>
+        <item>Medium</item>
+        <item>Hard</item>
+    </string-array>
+</resources>
