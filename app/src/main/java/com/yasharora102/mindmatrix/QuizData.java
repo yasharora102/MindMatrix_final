@@ -2,7 +2,7 @@ package com.yasharora102.mindmatrix;
 
 public class QuizData {
     public static String[] categories = {"Science", "History", "General Knowledge"};
-
+    public static String[] difficulties = {"Easy", "Medium", "Hard"};
     public static String[][][] questions = {
             // Science Questions
             {

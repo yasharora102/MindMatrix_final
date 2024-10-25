@@ -5,37 +5,42 @@
     android:padding="16dp"
     android:background="@android:color/background_light">
 
+    <!-- Timer TextView -->
     <TextView
         android:id="@+id/timer_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Time: 30"
         android:textSize="18sp"
+        android:textColor="@android:color/holo_red_dark"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp" />
+        android:layout_margin="16dp" />
 
+    <!-- Score TextView -->
     <TextView
         android:id="@+id/score_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Score: 0"
         android:textSize="18sp"
+        android:textColor="@android:color/black"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="16dp" />
+        android:layout_margin="16dp" />
 
+    <!-- Question TextView -->
     <TextView
         android:id="@+id/question_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Question goes here..."
         android:textSize="22sp"
+        android:textStyle="bold"
         android:layout_marginTop="50dp"
         android:layout_centerHorizontal="true" />
 
+    <!-- Option A Button -->
     <Button
         android:id="@+id/option_a"
         android:layout_width="match_parent"
@@ -44,6 +49,7 @@
         android:layout_marginTop="20dp"
         android:layout_below="@id/question_view" />
 
+    <!-- Option B Button -->
     <Button
         android:id="@+id/option_b"
         android:layout_width="match_parent"
@@ -52,6 +58,7 @@
         android:layout_marginTop="10dp"
         android:layout_below="@id/option_a" />
 
+    <!-- Option C Button -->
     <Button
         android:id="@+id/option_c"
         android:layout_width="match_parent"
@@ -60,6 +67,7 @@
         android:layout_marginTop="10dp"
         android:layout_below="@id/option_b" />
 
+    <!-- Option D Button -->
     <Button
         android:id="@+id/option_d"
         android:layout_width="match_parent"
@@ -68,6 +76,7 @@
         android:layout_marginTop="10dp"
         android:layout_below="@id/option_c" />
 
+    <!-- Next Button -->
     <Button
         android:id="@+id/next_button"
         android:layout_width="wrap_content"

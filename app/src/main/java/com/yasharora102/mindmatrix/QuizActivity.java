@@ -3,6 +3,7 @@ package com.yasharora102.mindmatrix;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -12,6 +13,8 @@ public class QuizActivity extends AppCompatActivity {
     TextView questionView, scoreView, timerView;
     Button optionA, optionB, optionC, optionD, nextButton;
     int score = 0, currentQuestion = 0, category, difficulty;
+
+    private Handler handler = new Handler();  // Used for UI updates
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,54 +33,70 @@ public class QuizActivity extends AppCompatActivity {
         optionD = findViewById(R.id.option_d);
         nextButton = findViewById(R.id.next_button);
 
-        loadQuestion();
+        // Start loading questions in the background thread
+        new Thread(this::loadQuestion).start();
 
-        // Set click listeners for options
         optionA.setOnClickListener(v -> selectOption(0));
         optionB.setOnClickListener(v -> selectOption(1));
         optionC.setOnClickListener(v -> selectOption(2));
         optionD.setOnClickListener(v -> selectOption(3));
 
         nextButton.setOnClickListener(v -> skipQuestion());
+
+        // Start the quiz timer in the background thread
+        startTimer();
     }
 
     private void loadQuestion() {
-        String question = QuizData.questions[category][difficulty][currentQuestion];
-        String[] options = QuizData.answers[category][difficulty][currentQuestion];
-        questionView.setText(question);
-        scoreView.setText("Score: " + score);
-        optionA.setText(options[0]);
-        optionB.setText(options[1]);
-        optionC.setText(options[2]);
-        optionD.setText(options[3]);
+        // Load the question and update the UI on the main thread
+        handler.post(() -> {
+            String question = QuizData.questions[category][difficulty][currentQuestion];
+            String[] options = QuizData.answers[category][difficulty][currentQuestion];
+            questionView.setText(question);
+            scoreView.setText("Score: " + score);
+            optionA.setText(options[0]);
+            optionB.setText(options[1]);
+            optionC.setText(options[2]);
+            optionD.setText(options[3]);
+        });
     }
 
     private void selectOption(int selectedIndex) {
-        // Check if the selected answer is correct
         if (selectedIndex == QuizData.correctAnswers[category][difficulty][currentQuestion]) {
             score++;  // Increment score if correct
         }
 
-        // Load the next question
         currentQuestion++;
         if (currentQuestion < QuizData.questions[category][difficulty].length) {
-            loadQuestion();
+            // Load the next question in a separate thread
+            new Thread(this::loadQuestion).start();
         } else {
-            endQuiz();  // End the quiz if there are no more questions
+            endQuiz();
         }
     }
 
     private void skipQuestion() {
         currentQuestion++;
         if (currentQuestion < QuizData.questions[category][difficulty].length) {
-            loadQuestion();
+            new Thread(this::loadQuestion).start();
         } else {
             endQuiz();
         }
     }
 
     private void startTimer() {
-        // Timer implementation here if needed
+        new CountDownTimer(30000, 1000) {  // 30-second timer
+            public void onTick(long millisUntilFinished) {
+                handler.post(() -> timerView.setText("Time: " + millisUntilFinished / 1000 + "s"));
+            }
+
+            public void onFinish() {
+                handler.post(() -> {
+                    timerView.setText("Time's up!");
+                    endQuiz();  // End quiz if time runs out
+                });
+            }
+        }.start();
     }
 
     private void endQuiz() {
