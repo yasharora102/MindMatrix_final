@@ -11,6 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MindMatrix"
+
+
         tools:targetApi="31">
         <activity
             android:name=".MainActivity"
@@ -22,7 +24,10 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".QuizActivity" />
+
+        <activity android:name=".QuizActivity"
+
+            />
         <activity android:name=".SummaryActivity"></activity>
 
     </application>
